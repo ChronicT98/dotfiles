@@ -195,9 +195,9 @@ shift + alt - 0x2B : yabai -m window --grid 2:1:0:0:1:1  # top half
 shift + alt - 0x2F : yabai -m window --grid 2:1:0:1:1:1  # bottom half
 
 # Resize floating window (larger/smaller)
-shift + cmd - 0x1E : yabai -m window --resize top_left:-20:-20; \
+shift + alt - 0x1E : yabai -m window --resize top_left:-20:-20; \
                      yabai -m window --resize bottom_right:20:20  # shift+cmd+"+" (größer)
-shift + cmd - 0x2C : yabai -m window --resize top_left:20:20; \
+shift + alt - 0x2C : yabai -m window --resize top_left:20:20; \
                      yabai -m window --resize bottom_right:-20:-20  # shift+cmd+"-" (kleiner)
 
 # Move floating window with arrow keys

@@ -64,8 +64,8 @@ yabai -m config mouse_drop_action           swap
 yabai -m config window_shadow               float
 
 # Window animations
-yabai -m config window_animation_duration   0.25
-yabai -m config window_animation_easing     ease_out_circ
+yabai -m config window_animation_duration   0.15
+yabai -m config window_animation_easing     ease_in_quart
 
 # Window opacity
 yabai -m config window_opacity              on
