@@ -216,7 +216,16 @@ The following applications are set to float by default:
 
 ## Updating
 
-To update your dotfiles on the current machine:
+### Quick Update (Recommended)
+
+Use the update script to pull changes and restart services:
+
+```bash
+cd ~/dotfiles
+./update.sh
+```
+
+### Manual Update
 
 ```bash
 cd ~/dotfiles
@@ -224,6 +233,8 @@ git pull
 yabai --restart-service
 skhd --restart-service
 ```
+
+**Note:** If you used the `install.sh` script, your configs are symlinked. This means a simple `git pull` automatically updates your active configurations!
 
 ## Resources
 
