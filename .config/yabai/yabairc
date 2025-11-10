@@ -86,7 +86,8 @@ yabai -m config auto_balance                off
 # ====== Rules =================================
 
 # Exclude problematic apps from being managed:
-yabai -m rule --add app="^System Settings$" manage=off
+yabai -m rule --add app="^System.*einstellungen$" manage=off  # German (with soft hyphen)
+yabai -m rule --add app="^System Settings$" manage=off         # English
 yabai -m rule --add app="^Archive Utility$" manage=off
 yabai -m rule --add app="^Finder$" manage=on
 yabai -m rule --add app="^Calculator$" manage=off
@@ -94,5 +95,6 @@ yabai -m rule --add app="^Karabiner-Elements$" manage=off
 yabai -m rule --add app="^QuickTime Player$" manage=off
 yabai -m rule --add app="^Raycast$" manage=off
 yabai -m rule --add app="^ColorSlurp$" manage=off
+yabai -m rule --add app="^Acrobat$" manage=off
 
 echo "yabai configuration loaded..."
