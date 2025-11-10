@@ -175,8 +175,8 @@ shift + alt - h : yabai -m window --grid 1:2:0:0:1:1
 # Make floating window fill right-half of screen
 shift + alt - l : yabai -m window --grid 1:2:1:0:1:1
 
-# Make floating window centered (medium size: 50% width, 50% height)
-shift + alt - c : yabai -m window --grid 4:4:1:1:2:2
+# Make floating window centered (50% width, 100% height)
+shift + alt - c : yabai -m window --grid 1:4:1:0:2:1
 
 # Make floating window centered (large size: 80% width, 80% height)
 shift + alt - m : yabai -m window --grid 10:10:1:1:8:8
