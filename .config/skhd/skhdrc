@@ -1,0 +1,272 @@
+# ################################################################ #
+# THE FOLLOWING IS AN EXPLANATION OF THE GRAMMAR THAT SKHD PARSES. #
+# FOR SIMPLE EXAMPLE MAPPINGS LOOK FURTHER DOWN THIS FILE..        #
+# ################################################################ #
+
+# A list of all built-in modifier and literal keywords can
+# be found at https://github.com/koekeishiya/skhd/issues/1
+#
+# A hotkey is written according to the following rules:
+#
+#   hotkey       = <mode> '<' <action> | <action>
+#
+#   mode         = 'name of mode' | <mode> ',' <mode>
+#
+#   action       = <keysym> '[' <proc_map_lst> ']' | <keysym> '->' '[' <proc_map_lst> ']'
+#                  <keysym> ':' <command>          | <keysym> '->' ':' <command>
+#                  <keysym> ';' <mode>             | <keysym> '->' ';' <mode>
+#
+#   keysym       = <mod> '-' <key> | <key>
+#
+#   mod          = 'modifier keyword' | <mod> '+' <mod>
+#
+#   key          = <literal> | <keycode>
+#
+#   literal      = 'single letter or built-in keyword'
+#
+#   keycode      = 'apple keyboard kVK_<Key> values (0x3C)'
+#
+#   proc_map_lst = * <proc_map>
+#
+#   proc_map     = <string> ':' <command> | <string>     '~' |
+#                  '*'      ':' <command> | '*'          '~'
+#
+#   string       = '"' 'sequence of characters' '"'
+#
+#   command      = command is executed through '$SHELL -c' and
+#                  follows valid shell syntax. if the $SHELL environment
+#                  variable is not set, it will default to '/bin/bash'.
+#                  when bash is used, the ';' delimeter can be specified
+#                  to chain commands.
+#
+#                  to allow a command to extend into multiple lines,
+#                  prepend '\' at the end of the previous line.
+#
+#                  an EOL character signifies the end of the bind.
+#
+#   ->           = keypress is not consumed by skhd
+#
+#   *            = matches every application not specified in <proc_map_lst>
+#
+#   ~            = application is unbound and keypress is forwarded per usual, when specified in a <proc_map>
+#
+# A mode is declared according to the following rules:
+#
+#   mode_decl = '::' <name> '@' ':' <command> | '::' <name> ':' <command> |
+#               '::' <name> '@'               | '::' <name>
+#
+#   name      = desired name for this mode,
+#
+#   @         = capture keypresses regardless of being bound to an action
+#
+#   command   = command is executed through '$SHELL -c' and
+#               follows valid shell syntax. if the $SHELL environment
+#               variable is not set, it will default to '/bin/bash'.
+#               when bash is used, the ';' delimeter can be specified
+#               to chain commands.
+#
+#               to allow a command to extend into multiple lines,
+#               prepend '\' at the end of the previous line.
+#
+#               an EOL character signifies the end of the bind.
+
+# ############################################################### #
+# THE FOLLOWING SECTION CONTAIN SIMPLE MAPPINGS DEMONSTRATING HOW #
+# TO INTERACT WITH THE YABAI WM. THESE ARE SUPPOSED TO BE USED AS #
+# A REFERENCE ONLY, WHEN MAKING YOUR OWN CONFIGURATION..          #
+# ############################################################### #
+
+# ====== Navigation (change focus) ======
+
+# Change focus between windows
+alt - left : yabai -m window --focus west
+alt - down : yabai -m window --focus south
+alt - up : yabai -m window --focus north
+alt - right : yabai -m window --focus east
+
+# Alternative: vim-style navigation
+# alt - h : yabai -m window --focus west
+# alt - j : yabai -m window --focus south
+# alt - k : yabai -m window --focus north
+# alt - l : yabai -m window --focus east
+
+
+# ====== Moving windows ======
+
+# Move windows in current workspace
+shift + alt - left : yabai -m window --swap west
+shift + alt - down : yabai -m window --swap south
+shift + alt - up : yabai -m window --swap north
+shift + alt - right : yabai -m window --swap east
+
+# Alternative: vim-style swapping
+# shift + alt - h : yabai -m window --swap west
+# shift + alt - j : yabai -m window --swap south
+# shift + alt - k : yabai -m window --swap north
+# shift + alt - l : yabai -m window --swap east
+
+# Warp (move and reflow layout)
+alt + cmd - left : yabai -m window --warp west
+alt + cmd - down : yabai -m window --warp south
+alt + cmd - up : yabai -m window --warp north
+alt + cmd - right : yabai -m window --warp east
+
+# Move window to display and follow focus
+shift + alt - 1 : yabai -m window --display 1
+shift + alt - 2 : yabai -m window --display 2
+
+# Move window to space and follow focus
+shift + alt - b : yabai -m window --space prev
+shift + alt - n : yabai -m window --space next
+alt - 1 : yabai -m window --space 1
+alt - 2 : yabai -m window --space 2
+alt - 3 : yabai -m window --space 3
+alt - 4 : yabai -m window --space 4
+alt - 5 : yabai -m window --space 5
+
+
+# ====== Resize windows ======
+
+# Resize windows
+ctrl + alt - left : yabai -m window --resize left:-50:0; \
+                  yabai -m window --resize right:-50:0
+ctrl + alt - down : yabai -m window --resize bottom:0:50; \
+                  yabai -m window --resize top:0:50
+ctrl + alt - up : yabai -m window --resize top:0:-50; \
+                  yabai -m window --resize bottom:0:-50
+ctrl + alt - right : yabai -m window --resize right:50:0; \
+                  yabai -m window --resize left:50:0
+
+# Alternative: increase/decrease window size
+# shift + alt - a : yabai -m window --resize left:-20:0
+# shift + alt - w : yabai -m window --resize top:0:-20
+# shift + cmd - s : yabai -m window --resize bottom:0:-20
+# shift + cmd - w : yabai -m window --resize top:0:20
+
+# Equalize size of windows
+ctrl + alt - e : yabai -m space --balance
+
+# Alternative balance shortcut
+# shift + alt - 0 : yabai -m space --balance
+
+# ====== Rotate and flip ======
+
+# Rotate windows clockwise and anticlockwise
+alt - r : yabai -m space --rotate 270
+shift + alt - r : yabai -m space --rotate 90
+
+# Flip along y-axis
+alt - y : yabai -m space --mirror y-axis
+
+# Flip along x-axis
+alt - x : yabai -m space --mirror x-axis
+
+# ====== Float / Unfloat window ======
+
+# Toggle float and restore position (centered, medium size)
+alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
+
+# Make floating window fill screen
+shift + alt - f : yabai -m window --grid 1:1:0:0:1:1
+
+# Make floating window fill left-half of screen
+shift + alt - h : yabai -m window --grid 1:2:0:0:1:1
+
+# Make floating window fill right-half of screen
+shift + alt - l : yabai -m window --grid 1:2:1:0:1:1
+
+# Make floating window centered (medium size: 50% width, 50% height)
+shift + alt - c : yabai -m window --grid 4:4:1:1:2:2
+
+# Make floating window centered (large size: 80% width, 80% height)
+shift + alt - m : yabai -m window --grid 10:10:1:1:8:8
+
+# Make floating window centered (small size: 40% width, 40% height)
+shift + alt - s : yabai -m window --grid 5:5:1:1:3:3
+
+# Position floating window in corners (25% of screen each)
+shift + alt - u : yabai -m window --grid 2:2:0:0:1:1  # top-left
+shift + alt - i : yabai -m window --grid 2:2:1:0:1:1  # top-right
+shift + alt - j : yabai -m window --grid 2:2:0:1:1:1  # bottom-left
+shift + alt - k : yabai -m window --grid 2:2:1:1:1:1  # bottom-right
+
+# Position floating window - top/bottom half
+shift + alt - 0x2B : yabai -m window --grid 2:1:0:0:1:1  # top half
+shift + alt - 0x2F : yabai -m window --grid 2:1:0:1:1:1  # bottom half
+
+# Resize floating window (larger/smaller)
+shift + cmd - 0x1E : yabai -m window --resize top_left:-20:-20; \
+                     yabai -m window --resize bottom_right:20:20  # shift+cmd+"+" (größer)
+shift + cmd - 0x2C : yabai -m window --resize top_left:20:20; \
+                     yabai -m window --resize bottom_right:-20:-20  # shift+cmd+"-" (kleiner)
+
+# Move floating window with arrow keys
+shift + ctrl - left  : yabai -m window --move rel:-40:0
+shift + ctrl - down  : yabai -m window --move rel:0:40
+shift + ctrl - up    : yabai -m window --move rel:0:-40
+shift + ctrl - right : yabai -m window --move rel:40:0
+
+# ====== Window splitting ======
+
+# Create desktop, move window and follow focus
+shift + alt - c : yabai -m space --create && \
+                  index="$(yabai -m query --spaces --display | jq 'map(select(."is-native-fullscreen" == false))[-1].index')" && \
+                  yabai -m window --space "${index}" && \
+                  yabai -m space --focus "${index}"
+
+# Alternative: create desktop without moving window
+# shift + cmd - n : yabai -m space --create && \
+#                   index="$(yabai -m query --spaces --display | jq 'map(select(."is-native-fullscreen" == false))[-1].index')" && \
+#                   yabai -m window --space "${index}" && \
+#                   yabai -m space --focus "${index}"
+
+
+# Fast focus desktop
+ctrl - tab : yabai -m space --focus recent
+ctrl - left : yabai -m space --focus prev
+ctrl - right : yabai -m space --focus next
+ctrl - 1 : yabai -m space --focus 1
+ctrl - 2 : yabai -m space --focus 2
+ctrl - 3 : yabai -m space --focus 3
+ctrl - 4 : yabai -m space --focus 4
+ctrl - 5 : yabai -m space --focus 5
+ctrl - 6 : yabai -m space --focus 6
+ctrl - 7 : yabai -m space --focus 7
+ctrl - 8 : yabai -m space --focus 8
+ctrl - 9 : yabai -m space --focus 9
+
+# Send window to desktop and follow focus
+# shift + cmd - z : yabai -m window --space next; yabai -m space --focus next
+# shift + cmd - x : yabai -m window --space prev; yabai -m space --focus prev
+
+# ====== Change window split type ======
+
+# Toggle split orientation
+alt - e : yabai -m window --toggle split
+
+# Set insertion point in focused container
+ctrl + alt - h : yabai -m window --insert west
+ctrl + alt - j : yabai -m window --insert south
+ctrl + alt - k : yabai -m window --insert north
+ctrl + alt - l : yabai -m window --insert east
+
+# ====== Fullscreen and zoom ======
+
+# Toggle fullscreen
+alt - f : yabai -m window --toggle zoom-fullscreen
+
+# Toggle native fullscreen
+# shift + alt - f : yabai -m window --toggle native-fullscreen
+
+# Toggle parent zoom
+# alt - d : yabai -m window --toggle zoom-parent
+
+# ====== Sticky and PIP ======
+
+# Toggle sticky (stays on all spaces) and picture-in-picture
+alt - p : yabai -m window --toggle sticky --toggle pip
+
+# ====== Restart yabai and skhd ======
+
+ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/com.koekeishiya.yabai" && \
+                       launchctl kickstart -k "gui/${UID}/com.koekeishiya.skhd"
