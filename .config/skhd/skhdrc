@@ -274,3 +274,7 @@ alt - p : yabai -m window --toggle sticky --toggle pip
 
 ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/com.koekeishiya.yabai" && \
                        launchctl kickstart -k "gui/${UID}/com.koekeishiya.skhd"
+
+.blacklist [
+    "Microsoft Remote Desktop"
+]
