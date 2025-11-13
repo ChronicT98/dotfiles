@@ -110,6 +110,7 @@ alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
 # Toggle sticky (stays on all spaces) and picture-in-picture
 alt - p : yabai -m window --toggle sticky --toggle pip
 
+alt - e : yabai -m window --toggle split
 
 # Move windows in current workspace
 shift + alt - left : yabai -m window --swap west
