@@ -3,7 +3,7 @@
 # FOR SIMPLE EXAMPLE MAPPINGS LOOK FURTHER DOWN THIS FILE..        #
 # ################################################################ #
 
-# A list of all built-in modifier and literal keywords can
+ # A list of all built-in modifier and literal keywords can
 # be found at https://github.com/koekeishiya/skhd/issues/1
 #
 # A hotkey is written according to the following rules:
@@ -196,6 +196,6 @@ ctrl + alt + cmd - r : launchctl kickstart -k "gui/${UID}/com.koekeishiya.yabai"
 
 .blacklist [
     "Microsoft Remote Desktop"
-    "Ghostty"
-    "Terminal"
+    #"Ghostty"
+    #"Terminal"
 ]
